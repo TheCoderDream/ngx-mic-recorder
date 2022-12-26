@@ -112,7 +112,7 @@ const defaultVisualizationOptions = {
 
 ## Template options
 
-```angular2html
+```html
 <ngx-mic-recorder
   (getAsMp3)="saveAsMp3($event)"
 >
