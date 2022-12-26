@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, from, map, switchMap} from 'rxjs';
+import { BehaviorSubject, from, map, switchMap } from 'rxjs';
 import { MP3Encoder } from './utils/mp3-encoder';
 import { AudioContext } from './utils/audio-context';
+
+export interface RecordingEvents {
+  afterStartRecording: () => void;
+  afterStopRecording: (blob: Blob) => void;
+  onPause: () => void;
+  onResume: () => void;
+}
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +26,7 @@ export class NgxMicRecorderService {
   private _activeStream?: MediaStream;
   private _mp3Encoder = new MP3Encoder();
   private _mediaRecorder?: MediaRecorder;
+  private _recordingEvents?: Partial<RecordingEvents>;
 
   public isRecording$ = this._isRecordingSubject.asObservable();
   public isPaused$ = this._isPausedSubject.asObservable();
@@ -51,6 +59,9 @@ export class NgxMicRecorderService {
     });
   }
 
+  public setRecordingEvents(events: Partial<RecordingEvents>) {
+    this._recordingEvents = events;
+  }
 
 
   public toggleStartStop = (): void =>  {
@@ -85,6 +96,8 @@ export class NgxMicRecorderService {
           this._mp3Encoder.encode(event.inputBuffer.getChannelData(0));
         };
 
+        if (this._recordingEvents?.afterStartRecording) this._recordingEvents?.afterStartRecording();
+
         recorder.addEventListener('dataavailable', (event: BlobEvent) => {
           this._recordedBlobSubject.next(event.data);
           // if (onDataAvailable) onDataAvailable(event.data);
@@ -104,7 +117,7 @@ export class NgxMicRecorderService {
     this._isPausedSubject.next(false);
     this._recordingStateSubject.next('inactive');
     AudioContext.resetAnalyser();
-    // if (afterRecording) afterRecording(chunk.value);
+    if (this._recordingEvents?.afterStopRecording) this._recordingEvents.afterStopRecording(this._recordedBlobSubject.getValue() as Blob);
 
     if (this._processor && this._mic) {
       this._mic.disconnect();
@@ -135,6 +148,7 @@ export class NgxMicRecorderService {
     AudioContext.resumeAnalyze();
     void this._audioContext.resume();
     this._startTimer();
+    if (this._recordingEvents?.onResume) this._recordingEvents.onResume();
   }
 
   public pause = (): void => {
@@ -144,6 +158,7 @@ export class NgxMicRecorderService {
     AudioContext.pauseAnalyze();
     void this._audioContext.suspend();
     this._stopTimer();
+    if (this._recordingEvents?.onPause) this._recordingEvents.onPause();
   }
 
 }

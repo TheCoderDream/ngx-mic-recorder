@@ -59,7 +59,10 @@ export class NgxMicRecorderComponent implements OnInit, AfterViewInit, OnDestroy
   @Input() visualizationOptions?: Omit<AudioVisualizationOptions, 'canvas'>;
   @Output() getAsMp3 = new EventEmitter<{ data: Blob, url: string}>();
   @Output() getAsBlob = new EventEmitter<Blob>();
-  isRecording = false;
+  @Output() afterStartRecording = new EventEmitter<void>();
+  @Output() afterStopRecording = new EventEmitter<Blob>();
+  @Output() onPauseRecording = new EventEmitter<void>();
+  @Output() onResumeRecording = new EventEmitter<void>();
 
   private _subscription?: Subscription;
 
@@ -74,6 +77,13 @@ export class NgxMicRecorderComponent implements OnInit, AfterViewInit, OnDestroy
     this._subscription.add(
       this.ngxMicRecorderService.recordedBlob$.subscribe((data) => this.getAsBlob.emit(data!))
     )
+
+    this.ngxMicRecorderService.setRecordingEvents({
+      afterStartRecording: () => this.afterStartRecording.emit(),
+      afterStopRecording: (blob) => this.afterStopRecording.emit(blob),
+      onPause: () => this.onPauseRecording.emit(),
+      onResume: () => this.onResumeRecording.emit(),
+    })
   }
 
   ngAfterViewInit(): void {
@@ -108,5 +118,4 @@ export class NgxMicRecorderComponent implements OnInit, AfterViewInit, OnDestroy
       resume: this.ngxMicRecorderService.resume
     }
   }
-
 }
