@@ -1,4 +1,5 @@
 <div align="center">
+  <img src="https://github.com/TheCoderDream/ngx-mic-recorder/blob/main/projects/ngx-mic-recorder/misc/documentation-assets/ngx-voice-recording.gif?raw=true" alt="Angular Microphone Recorder">
   <br>
   <h1>ngx-mic-recorder</h1>
   <br>
