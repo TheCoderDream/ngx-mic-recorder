@@ -1,0 +1,93 @@
+ngx-mic-recorder {
+  width: 400px;
+  display: block;
+
+  & > * {
+    box-sizing: border-box;
+  }
+
+  & > canvas {
+    width: 100%;
+  }
+}
+
+.ngx-mic-recorder {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__recording-time {
+    color: #282828;
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+  &__state {
+    width: 24px;
+    height: 24px;
+  }
+
+  &__start-stop {
+    padding: 16px;
+    background-color: #282828;
+    border-radius: 50px;
+    border: 4px solid #CFCFCF;
+    cursor: pointer;
+
+    & .ngx-mic-recorder__stop {
+      background-color: #CFCFCF;
+      border-radius: 4px;
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    & .ngx-mic-recorder__start {
+      color: #CFCFCF;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &__toggle {
+    padding: 16px 48px;
+    background-color: #282828;
+    border-radius: 50px;
+    border: 4px solid #CFCFCF;
+    cursor: pointer;
+    color: #CFCFCF;
+    display: flex;
+    align-items: center;
+
+    & > span {
+      background-color: #D40100;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      display: block;
+      margin-inline-end: 8px;
+    }
+
+    & > p {
+      margin: 0;
+      width: 60px;
+      text-transform: capitalize;
+    }
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.blink {
+  animation-name: blink;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes blink {
+  0%   {opacity: 1;}
+  50%  {opacity: 0.3;}
+  100% {opacity: 1;}
+}

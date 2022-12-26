@@ -1,0 +1,29 @@
+{
+  "name": "ngx-mic-recorder",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@angular/common": ">=12.0.0",
+    "@angular/core": ">=12.0.0",
+    "lamejstmp": "1.0.1"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "repository": "thecoderdream/ngx-mic-recorder",
+  "homepage": "https://github.com/TheCoderDream/ngx-mic-recorder",
+  "license": "MIT",
+  "description": "Microphone recorder for Angular",
+  "keywords": [
+    "ng2",
+    "ngx",
+    "ngx-toastr",
+    "toastr-ng2",
+    "angular",
+    "angular2",
+    "typescript",
+    "mp3 recorder",
+    "audio recorder",
+    "angular audio recorder",
+    "angular microphone recorder"
+  ]
+}
