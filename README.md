@@ -55,14 +55,14 @@ export class AppModule { }
 
 ## Use
 
-```angular2html
+```html
 <ngx-mic-recorder
   (getAsMp3)="saveAsMp3($event)"
 ></ngx-mic-recorder>
 ```
 
 **With all options:**
-```angular2html
+```html
 <ngx-mic-recorder
   (afterStartRecording)="afterStart($event)"
   (afterStopRecording)="afterStop()"
