@@ -26,6 +26,12 @@ DEMO: https://stackblitz.com/edit/angular-ivy-bdzsz1?file=src/app/app.component.
 |------------------|---------|
 | 1.0.0            | => 12.x |
 
+## Install
+
+```bash
+npm install ngx-mic-recorder --save
+```
+
 ## Setup
 
 **Step 1:** Import the module
